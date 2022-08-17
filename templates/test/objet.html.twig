@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <p>Pour accéder aux propriétés d'un objet dans Twig, on utilise le <code>.</code></p>
+    <p>Donc Twig, ne fait pas de différence entre un objet et un tableau associatif (sauf
+        qu'on ne peut pas utiliser une balise <code>for</code> sur un objet)</p>
+    <p>Je m'appelle {{ tableau.prenom }} {{ tableau.nom }}</p>
+    
+{% endblock %}

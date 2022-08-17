@@ -33,20 +33,22 @@ Tous les opérateurs d'égalité : == !=
         {% endblock %}
     </head>
     <body>
-        <h1>Bienvenue à la bibliothèque</h1>
+        <div class="container">
+            <h1>Bienvenue à la bibliothèque</h1>
 
-        {% block nav %} ici se trouvera le menu {% endblock %}
+            {% block nav %} ici se trouvera le menu {% endblock %}
 
-        {% block body %}
-            <p>Ceci est le contenu de la balise twig <code>block body</code> du fichier
-                <i>base.html.twig</i>
-            </p>
-        {% endblock %}
-
-        <footer class="bg-dark text-light">
-            {% block piedDePage %}
-                ceci est le footer
+            {% block body %}
+                <p>Ceci est le contenu de la balise twig <code>block body</code> du fichier
+                    <i>base.html.twig</i>
+                </p>
             {% endblock %}
-        </footer>
+
+            <footer class="bg-dark text-light">
+                {% block piedDePage %}
+                    ceci est le footer
+                {% endblock %}
+            </footer>
+        </div>
     </body>
 </html>

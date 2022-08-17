@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Indices</th>
+                <th>Valeurs</th>
+            </tr>
+        </thead>
+        {% for indice, valeur in tableau %}
+            <tr>
+                <td>{{ indice }}</td>
+                <td>{{ valeur }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <p>Je m'appelle {{ tableau["prenom"] }} {{ tableau["nom"] }}</p>
+    <p>Je m'appelle {{ tableau.prenom }} {{ tableau.nom }}</p>
+    
+{% endblock %}

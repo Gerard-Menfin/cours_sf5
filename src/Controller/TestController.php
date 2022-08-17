@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use stdClass;
 
 class TestController extends AbstractController
 {
@@ -91,7 +92,30 @@ class TestController extends AbstractController
 
     #[Route('/tableau2')]
     public function tableau2(){
+        $tableau = [
+            "nom" => "Mentor",
+            "prenom" => "Gérard"
+        ];
 
+        return $this->render("test/tableau2.html.twig", [ "tableau" => $tableau ]);
+        /* 
+            AFFICHEZ sous forme de table HTML (<table>), les indices et les valeurs du 
+            tableau
+
+            | indices  | valeurs  |
+            |----------|----------|
+            | nom      |  Mentor  |
+            | prenom   |  Gérard  |
+        */
     }
+
+    #[Route('/objet')]
+    public function objet(){
+        $tableau = new \stdClass;
+        $tableau->nom = "Ateur";
+        $tableau->prenom = "Nordine";
+        return $this->render("test/objet.html.twig", [ "tableau" => $tableau ]);
+    }
+
 
 }
