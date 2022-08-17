@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ dump(variable) }}
+    {{ variable[0] ~ " " ~ variable[1] }}
+    <hr>
+    {% for i in 4..0 %}
+        {{ i ~ " : " ~ variable[i] }}<br>
+    {% endfor %}
+
+    <ul class="list-group">
+    {% for i in 0..variable|length - 1 %}
+        <li class="list-group-item">
+            {{ i ~ " : " ~ variable[i] }}
+        </li>        
+    {% endfor %}
+    </ul>
+    <p>La taille d'un tableau s'obtient avec le filtre <code>length</code></p>
+    <p>Taille du tableau <i>variable</i> : {{ variable|length }}</p>
+
+    <hr>
+    {% for car in "a".."z" %}
+        {{ car }}
+    {% endfor %}
+    <br>
+
+    {% for car in "w".."e" %}
+        {{ car }}
+    {% endfor %}
+
+    <hr>
+    {# Pour chaque 'valeur' du tableau 'variable' 
+        PHP  : foreach($variable as $valeur)
+        TWIG : {% for valeur in variable %}
+
+        PHP  : foreach($variable as $indice => $valeur)
+        TWIG : {% for indice, valeur in variable %}
+
+    #}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Indices</th>
+                <th>Valeurs</th>
+            </tr>
+        </thead>
+        {% for indice, valeur in variable %}
+            <tr>
+                <td>{{ indice }}</td>
+                <td>{{ valeur }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

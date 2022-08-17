@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{# La balise if permet de rendre une partie de l'affichage conditionnel.
+    la condition n'a pas besoin d'être entouré de ()
+    Il peut y avoir plusieurs elseif après une balise if qui doivent aussi avoir 
+        une condition
+    On peut conclure par un else
+
+    les TESTS : sont des comparaisons qui sont introduites par le mot-clé is
+        ex  si la variable b est nulle
+            {% if b is null %}
+    La comparaison stricte (=== en PHP) ne peut être faite qu'avec le test same as en Twig
+            {% if b same as 0 %}
+    Les opérateurs logiques (&&, ||, ! en PHP) sont remplacés par :
+                             AND, OR, NOT en Twig
+#}
+
+{% block body %}
+    <p>Le résultat du calcul de {{ a }} + {{ b }} est égal à {{ a + b }}</p>
+
+    {% if b is null %}
+
+        <p class="alert alert-warning">Veuillez donner une valeur à b</p>
+
+    {% elseif b is not same as 0 %}
+
+        <p>Le résultat du calcul de {{ a }} / {{ b }} est égal à {{ a / b }}</p>
+
+    {% else %}
+
+        <p class="alert alert-danger">Division par 0 impossible</p>
+
+    {% endif %}
+{% endblock %}
