@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/admin/livre')]
+#[Route('/biblio/livre')]
 class LivreController extends AbstractController
 {
     #[Route('/', name: 'app_admin_livre_index', methods: ['GET'])]
@@ -59,7 +59,7 @@ class LivreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_livre_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_admin_livre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Livre $livre, LivreRepository $livreRepository): Response
     {
         $form = $this->createForm(LivreType::class, $livre);
@@ -88,7 +88,7 @@ class LivreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_livre_delete', methods: ['POST'])]
+    #[Route('/{id}/supprimer', name: 'app_admin_livre_delete', methods: ['POST'])]
     public function delete(Request $request, Livre $livre, LivreRepository $livreRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token'))) {

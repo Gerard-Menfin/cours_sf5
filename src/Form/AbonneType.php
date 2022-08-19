@@ -16,7 +16,7 @@ class AbonneType extends AbstractType
             ->add('pseudo')
             ->add('roles', ChoiceType::class, [
                 "choices" => [
-                    "Abonné"            => "ROLE_ABONNE",
+                    "Abonné"            => "ROLE_USER",
                     "Bibliothécaire"    => "ROLE_BIBLIO",
                     "Directeur"         => "ROLE_ADMIN",
                     "Développeur"       => "ROLE_DEV"
