@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre{% endblock %}
+
+{% block h1 %}Fiche du livre n°{{ livre.id }}{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ livre.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ livre.titre }}</td>
+            </tr>
+            <tr>
+                <th>Résumé</th>
+                <td>{{ livre.resume }}</td>
+            </tr>
+            <tr>
+                <th>Couverture</th>
+                <td>                        
+                    <img class="vignette" src="/images/{{ livre.couverture }}" alt="pas de couverture pour {{ livre.titre }}">
+                </td>
+            </tr>
+
+            <tr>
+                <th>Nombre de catégories</th>
+                <td>{{ livre.categories|length }}</td>
+            </tr>
+
+            <tr>
+                <th>Catégories</th>
+                <td>
+                    <table>
+                        <tr>
+                            {% for cat in livre.categories %}
+                                <td style="border-width: 0">{{ cat.libelle }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_admin_livre_index') }}" class="btn btn-secondary">
+            <i class="fa fa-reply"></i> Retour à la liste
+        </a>
+
+        <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}" class="btn btn-primary">
+            <i class="fa fa-edit"></i> Modifier
+        </a>
+        
+        {{ include('admin/livre/_delete_form.html.twig') }}
+    </div>
+
+{% endblock %}

@@ -1,26 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des livres {% endblock %}
+{% block title %}Liste des livres{% endblock %}
+
+{% block h1 %} 
+    {{ block("title") }}
+{% endblock %}
 
 {% block body %}
-    <table class="table table-bordered">
-        <thead class="thead-dark">
+    <table class="table">
+        <thead>
             <tr>
-                <th>ID</th>
+                <th>Id</th>
                 <th>Titre</th>
                 <th>Résumé</th>
                 <th>Couverture</th>
+                <th>Catégories</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for livre in livres %}
-                <tr>
-                    <td>{{ livre.id }}</td>
-                    <td>{{ livre.titre }}</td>
-                    <td>{{ livre.resume }}</td>
-                    <td>{{ livre.couverture }}</td>
-                </tr>
-            {% endfor %}
+        {% for livre in livres %}
+            <tr>
+                <td>{{ livre.id }}</td>
+                <td>{{ livre.titre }}</td>
+                <td>{{ livre.resume }}</td>
+                <td>
+                    <img class="vignette" src="/images/{{ livre.couverture }}" alt="pas de couverture pour {{ livre.titre }}">                    
+                </td>
+                <td>
+                   {% for categorie in livre.categories %}
+                        {{ categorie.libelle }}
+                        {% if not loop.last %}
+                            ,
+                        {% endif %}
+                   {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_livre_show', {'titre': livre.titre}) }}">
+                        <i class="fa fa-book"></i>
+                    </a>
+                    <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun livre n'est enregistré</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
+
+    <a href="{{ path('app_admin_livre_new') }}" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Nouveau
+    </a>
 {% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ form_start(formAuteur) }}
+        {{ form_row(formAuteur.nom) }}
+        {{ form_row(formAuteur.prenom) }}
+        {{ form_row(formAuteur.biographie) }}
+        {{ form_row(formAuteur.enregistrer) }}
+    {{ form_end(formAuteur) }}
+
+{% endblock %}

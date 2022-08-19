@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {# {{ form(formLivre) }} #}
+
+    {{ form_start(formLivre) }}
+        {{ form_row(formLivre.auteur) }}
+        {{ form_row(formLivre.titre) }}
+        {{ form_row(formLivre.couverture) }}
+        {{ form_row(formLivre.resume) }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(formLivre) }}
+
+{% endblock %}
