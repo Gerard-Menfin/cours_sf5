@@ -4,8 +4,8 @@
 
 {% block body %}
     <div class="card-columns">
-        {% for livre in livres %}
-            {{ include("livre/card.html.twig") }}
+        {% for l in livres %}
+            {{ include("livre/card.html.twig", {livre: l}) }}
         {% endfor %}
     </div>
 

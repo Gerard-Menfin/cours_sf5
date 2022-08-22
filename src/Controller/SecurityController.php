@@ -12,9 +12,16 @@ class SecurityController extends AbstractController
     #[Route(path: '/connexion', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        /**
+         $this->getUser() permet de récupérer un objet de la classe Abonne contenant
+         les informations de l'utilisateur connecté. 
+         Vaut NULL si l'utilisateur n'est pas connecté.
+         */
+        if ($this->getUser()) {
+            $this->addFlash("info", "Vous êtes déjà connecté, <strong>" . $this->getUser()->getUserIdentifier() . "</strong>");
+            // $this->addFlash("info", "Vous êtes déjà connecté, " . $this->getUser()->getPseudo());
+            return $this->redirectToRoute('app_home');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

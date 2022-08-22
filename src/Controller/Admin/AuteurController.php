@@ -32,6 +32,7 @@ class AuteurController extends AbstractController
         if( $form->isSubmitted() && $form->isValid() ){
             $em->persist($auteur);
             $em->flush();
+            $this->addFlash("success", "Le nouvel auteur a bien été enregistré");
             return $this->redirectToRoute("app_admin_auteur");
         }
         return $this->render("admin/auteur/formulaire.html.twig", [

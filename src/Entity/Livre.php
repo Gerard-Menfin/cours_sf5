@@ -32,9 +32,13 @@ class Livre
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'livres')]
     private Collection $categories;
 
+    #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Emprunt::class, orphanRemoval: true)]
+    private Collection $emprunts;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->emprunts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,6 +114,53 @@ class Livre
     public function removeCategory(Categorie $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getCategoriesTexte()
+    {
+        $texte = "";
+        foreach ($this->categories as $categorie) {
+            /////////// version avec if
+            // if( $texte != "" ) {
+            //     $texte .= ", ";
+            // }
+            // $texte .= $categorie->getLibelle();
+
+            /////////// version avec opérateur ternaire
+            $texte .= ($texte ? ", " : "") . $categorie->getLibelle();
+        }
+
+        return $texte;
+    }
+
+    /**
+     * @return Collection<int, Emprunt>
+     */
+    public function getEmprunts(): Collection
+    {
+        return $this->emprunts;
+    }
+
+    public function addEmprunt(Emprunt $emprunt): self
+    {
+        if (!$this->emprunts->contains($emprunt)) {
+            $this->emprunts->add($emprunt);
+            $emprunt->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): self
+    {
+        if ($this->emprunts->removeElement($emprunt)) {
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getLivre() === $this) {
+                $emprunt->setLivre(null);
+            }
+        }
 
         return $this;
     }
