@@ -1,0 +1,18 @@
+$primary: #173261;
+$info: #9ee677;
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: #cbced4;
+}
+
+img.mini {
+    height: 50px;
+    width: auto;
+}
+
+img.vignette {
+    height: 100px;
+    width: auto;
+}

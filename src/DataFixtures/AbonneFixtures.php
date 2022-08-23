@@ -26,7 +26,7 @@ class AbonneFixtures extends Fixture
               ->setRoles(["ROLE_ADMIN"]);
         $manager->persist($admin);
 
-        for ($i=1; $i <= 10 ; $i++) { 
+        for ($i=1; $i <= 50 ; $i++) { 
             $abonne = new Abonne;
             $abonne->setPseudo("abonne$i")
                    ->setPassword( $this->hasher->hashPassword($abonne, "abonne$i") )
@@ -35,6 +35,7 @@ class AbonneFixtures extends Fixture
                    ->setNom("Nom$i")
                    ->setAdresse("35 rue Quelquepart 75000 Ville");
             $manager->persist($abonne);
+            $this->setReference("abonne_$i", $abonne);
         }
 
         for ($i=1; $i <= 5 ; $i++) { 

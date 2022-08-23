@@ -34,12 +34,13 @@ class LivreFixtures extends Fixture implements DependentFixtureInterface
             [ "titre" => "Le crime de l'Orient-Express",  "auteur" => "Christie",   "couverture" => "le_crime_de_l_orient-express.jpg" ],
         ];
 
-        foreach ($livres as $valeur ) {
+        foreach ($livres as $cpt => $valeur ) {
             $livre = new Livre;
             $livre->setTitre($valeur["titre"])
                   ->setCouverture($valeur["couverture"])
                   ->setAuteur( $this->getReference("auteur_" . $valeur["auteur"]) );
             $this->setReference("livre_" . $livre->getTitre(), $livre);
+            $this->setReference("livre_$cpt", $livre);
             $manager->persist($livre);
         }
 

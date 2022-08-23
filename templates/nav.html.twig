@@ -9,7 +9,7 @@
         <ul class="navbar-nav mr-auto">
             {% if app.user %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{ path('app_espace') }}">
                         {{ app.user.pseudo }}
                     </a>
                 </li>
