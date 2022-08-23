@@ -39,8 +39,26 @@
             <tr>
                 <th>Emprunts</th>
                 <td>
-                    <table>
+                    <table class="table">
                         {# EXO : afficher tous les emprunts de l'abonné #}
+                        <thead>
+                            <tr>
+                                <th>Livre</th>
+                                <th>Emprunté le</th>
+                                <th>Retour prévue le</th>
+                                <th>Rendu le</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for emprunt in abonne.emprunts %}
+                                <tr>
+                                    <td>{{ emprunt.livre.titre }}</td>
+                                    <td>{{ emprunt.dateEmprunt|date("d/m/y") }}</td>
+                                    <td>{{ emprunt.datePrevue|date("d/m/y") }}</td>
+                                    <td>{{ emprunt.dateRetour ? emprunt.dateRetour|date("d/m/y") : "à rendre" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </td>
             </tr>

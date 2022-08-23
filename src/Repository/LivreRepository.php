@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Livre;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Categorie;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Livre>
@@ -39,20 +40,42 @@ class LivreRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Livre[] Returns an array of Livre objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Livre[] Returns an array of Livre objects
+    * Doctrine Query Language
+    *    SELECT l.*
+    *    FROM livre l
+    *    WHERE l.titre LIKE '%le%'
+    *    ORDER BY l.titre;
+    */
+   public function recherche($motRecherche): array
+   {
+       return $this->createQueryBuilder('l')
+           ->where('l.titre LIKE :val')
+           ->setParameter('val', '%' . $motRecherche . '%')
+           ->orderBy('l.titre', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+   /**
+    *   SELECT l.*
+    *   FROM livre l 
+    *       JOIN livre_categorie lc ON l.id = lc.livre_id
+    *       JOIN categorie c ON c.id = lc.categorie_id
+    *   WHERE c.mots_cles LIKE "%science%" OR c.libelle LIKE "%science%";
+    */
+   public function rechercheCategories($motRecherche)
+   {
+        return $this->createQueryBuilder('l')
+                    ->join("l.categories", "c")
+                    ->where("c.mots_cles LIKE :mot OR c.libelle LIKE :mot")
+                    ->setParameter("mot", "%$motRecherche%")
+                    ->orderBy("c.libelle")
+                    ->addOrderBy("l.titre")
+                    ->getQuery()->getResult();
+   }
 
 //    public function findOneBySomeField($value): ?Livre
 //    {

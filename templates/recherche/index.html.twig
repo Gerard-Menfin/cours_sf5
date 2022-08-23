@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats recherche{% endblock %}
+
+{% block h1 %}Résultats de la recherche du mot : <code>{{ mot }}</code>{% endblock %}
+
+{% block body %}
+    <h2>Recherche dans le titre des livres :</h2>
+    <div class="card-columns">
+        {% for livre in livres %}
+            {{ include("livre/card.html.twig") }}
+        {% else %}
+            <div class="alert alert-danger">Aucune livre trouvé</div>
+        {% endfor %}
+    </div>
+
+    <h2>Recherche dans les catégories :</h2>
+    <div class="card-columns">
+        {% for livre in livresCategories %}
+            {{ include("livre/card.html.twig") }}
+        {% else %}
+            <div class="alert alert-danger">Aucune catégorie trouvée</div>                
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -12,6 +12,7 @@
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
+                <th>Auteur</th>
                 <th>Résumé</th>
                 <th>Couverture</th>
                 <th>Catégories</th>
@@ -23,6 +24,7 @@
             <tr>
                 <td>{{ livre.id }}</td>
                 <td>{{ livre.titre }}</td>
+                <td>{{ livre.auteur.prenom ~ " " ~ livre.auteur.nom }}</td>
                 <td>{{ livre.resume }}</td>
                 <td>
                     <img class="vignette" src="/images/{{ livre.couverture }}" alt="pas de couverture pour {{ livre.titre }}">                    
