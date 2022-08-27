@@ -29,6 +29,7 @@ Tous les opérateurs d'égalité : == !=
         {% endblock %}
     </head>
     <body>
+        {{ include("debug.html.twig") }}
         <div class="container">
             {% block nav %} 
                 {{ include("nav.html.twig") }}
@@ -46,7 +47,6 @@ Tous les opérateurs d'égalité : == !=
                         {{ msg|raw }}
                     {% endfor %}
                 </div>
-
             {% endfor %}
 
             <h1>{% block h1 %}Bienvenue à la bibliothèque{% endblock %}</h1>

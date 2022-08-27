@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% set entite = form.vars.value %}
+
+{% block title %}Hello PartageController!{% endblock %}
+
+{% block h1 %}Texte partagé{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between">
+        <h3>Crée le {{ entite.creation|date("d/m/y H:i:s") }}</h3>
+        <h3 id="editdate">Modifié le  {{ entite.creation|date("d/m/y H:i:s") }}</h3>
+    </div>
+    {{ form_start(form, {"attr": {id: "formPartaj"}}) }}
+        {{ form_row(form.contenu) }}
+        {% if not form.vars.attr.readonly %}
+            <button class="btn btn-secondary">Partager</button>
+        {% endif %}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block piedDePage %}{{ mode }}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        let dateTime = (str) => {
+            d = new Date(str);
+            return [String(d.getDate()).padStart(2, "0"), String(d.getMonth()+1).padStart(2, "0"), String(d.getFullYear())].join("/") + " " + [String(d.getHours()).padStart(2, "0"), String(d.getMinutes()).padStart(2, "0"), String(d.getSeconds()).padStart(2, "0")].join(":");
+        };
+
+        window.addEventListener("load", () => {
+            {% if mode == "partage" %}
+                    // $("#formPartaj").on("submit", (evt) => {
+                    //     evt.preventDefault();
+                    $("[id*='contenu']").on("input", (evt) => {
+                        $.ajax({
+                            url: "{{ path('aj_partage', {chemin: form.vars.value.chemin}) }}",
+                            method: "post",
+                            data: $("#formPartaj").serialize(),
+                            dataType: "json",
+                            success: (result) => {
+                                $("[id*='contenu']").html(result.contenu);
+                                $("#editdate").html( dateTime(result.modification) );
+                            },
+                            error: (x, e, s) => {
+                                console.log('erreur', e, s);
+                            },
+                        });
+                    });
+            {% else %}
+                    var test = window.setInterval(() => {
+                        $.ajax({
+                            url: "{{ path('aj_partage', {chemin: form.vars.value.chemin}) }}",
+                            method: "post",
+                            dataType: "json",
+                            success: (result) => {
+                                $("[id*='contenu']").html(result.contenu);
+                                $("#editdate").html( dateTime(result.modification) );
+                            },
+                            error: (x, e, s) => {
+                                console.log('erreur', e, s);
+                            },
+                        });
+                        
+                    }, 1000);
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags("partage") }}
+{% endblock %}
