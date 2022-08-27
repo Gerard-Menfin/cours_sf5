@@ -1,0 +1,24 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.188fa053.js",
+        "/build/213.2f51d059.js",
+        "/build/app.89f1f374.js"
+      ],
+      "css": [
+        "/build/213.04ae00c3.css",
+        "/build/app.e48ab3eb.css"
+      ]
+    },
+    "partage": {
+      "js": [
+        "/build/runtime.188fa053.js",
+        "/build/partage.43d20ab2.js"
+      ],
+      "css": [
+        "/build/partage.7fa6e624.css"
+      ]
+    }
+  }
+}
